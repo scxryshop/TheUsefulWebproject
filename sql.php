@@ -5,6 +5,29 @@ define("DB_HOST", "localhost");
 define("DB_PWD", "");
 define("DB_USER", "root");
 
+function getCategory($category_id){
+    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME);
+    $sql = "SELECT links.PKLinks, categories.PKCategories, links.name, categories.color, links.address FROM categories INNER JOIN links ON 
+    categories.PKCategories = links.FKCategories WHERE PKCategories = ? ORDER BY clicks DESC limit 0,5";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        exit();
+    }
+    mysqli_stmt_bind_param($stmt, "s", $category_id);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    while ($row = mysqli_fetch_assoc($result)) {
+        echo "
+            <form action=' ' method='POST'>
+            <input type='hidden' name='PK' value=" . $row['PKLinks'] . ">
+            <input type='hidden' name='link-address' value=" . $row['address'] . ">
+            <button style='background-color: ".$row['color']."' type='submit' name='submit-click' class='dataset'>" . $row['name'] . "
+                <img id='q" . $row['PKLinks'] . "' class='question' src='question-circle.svg'>
+            </button>
+            </form><br>";
+    }
+    mysqli_close($conn);
+}
 
 function fetchAllData()
 {
@@ -79,11 +102,16 @@ function searchAllData($search)
             <input type='hidden' name='PK' value=" . $row['PKLinks'] . ">
             <input type='hidden' name='link-address' value=" . $row['address'] . ">
             <button style='background-color: ".$row['color']."' type='submit' name='submit-click' class='dataset'>" . $row['name'] . "
-                <img id='q" . $row['PKLinks'] . "' class='question' src='question-circle.svg'>
+                <img value='" . $row['PKLinks'] . "' id='q" . $row['PKLinks'] . "' class='question' src='question-circle.svg'>
             </button>
             </form><br>";
     }
     mysqli_close($conn);
 }   
+
+function displayResponse($name, $color, $address, $PK){
+
+
+}
 
 ?>

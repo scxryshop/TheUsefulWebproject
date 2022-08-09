@@ -66,7 +66,13 @@ font-size: 1em;
     right: 4%;
     width: 3vh;
     height: 3vh;
-    z-index: 3;
+    z-index: 10;
+}
+
+.hidden_div{
+    background-color: green;
+    position: absolute;
+    left: 0;
 }
 
 .dataset {
@@ -79,4 +85,21 @@ font-size: 1em;
     font-size: 1em;
     font-weight: 500;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.search-in{
+    font-size: 1.5em;
+    outline: none;
+    border: 2px solid black;
+    border-radius: 6px;
+}
+
+.submit-search{
+    background-color: green;
+    color: white; 
+    border: none;
+    border-radius: 6px;
+    padding: 5px;
+    font-size: 1.3em;
+    height: 1.5em;
 }
