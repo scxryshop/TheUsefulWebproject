@@ -9,7 +9,8 @@ define("DB_USER", "root");
 function fetchAllData()
 {
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME);
-    $sql = "SELECT PKLinks, name, address FROM links ORDER BY clicks DESC limit 0,6";
+    $sql = "SELECT links.PKLinks, categories.PKCategories, links.name, categories.color, links.address FROM categories INNER JOIN links ON 
+    categories.PKCategories = links.FKCategories ORDER BY clicks DESC limit 0,5";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         exit();
@@ -21,13 +22,15 @@ function fetchAllData()
             <form action=' ' method='POST'>
             <input type='hidden' name='PK' value=" . $row['PKLinks'] . ">
             <input type='hidden' name='link-address' value=" . $row['address'] . ">
-            <button type='submit' name='submit-click' class='dataset'>" . $row['name'] . "
+            <button style='background-color: ".$row['color']."' type='submit' name='submit-click' class='dataset'>" . $row['name'] . "
                 <img id='q" . $row['PKLinks'] . "' class='question' src='question-circle.svg'>
             </button>
             </form><br>";
     }
     mysqli_close($conn);
 }
+
+// FORMS: 
 
 if (isset($_POST['submit-click'])) {
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME);
@@ -45,7 +48,7 @@ if (isset($_POST['submit-click'])) {
 function fetchCategories()
 {
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME);
-    $sql = "SELECT name, PKCategories FROM categories";
+    $sql = "SELECT name, PKCategories,color FROM categories";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         exit();
@@ -53,7 +56,7 @@ function fetchCategories()
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     while ($row = mysqli_fetch_assoc($result)) {
-        echo "<option value='" . $row['PKCategories'] . "'>" . $row['name'] . "</option>";
+        echo "<option class='category-opt' style='color: ".$row['color'].";' value='" . $row['PKCategories'] . "'>" . $row['name'] . "</option>";
     }
     mysqli_close($conn);
 }
@@ -61,49 +64,26 @@ function fetchCategories()
 function searchAllData($search)
 {
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME);
-    $s = "%" . $search . "%";
-    $sql = "SELECT name, address FROM links WHERE name LIKE $s";
+    $sql = "SELECT links.PKLinks, links.description, categories.PKCategories, links.name, categories.color, links.address FROM categories LEFT JOIN links ON links.FKCategories = categories.PKCategories 
+    WHERE links.name LIKE CONCAT('%', ?, '%') OR links.description LIKE CONCAT('%', ?, '%') OR categories.name LIKE CONCAT('%', ?, '%') ORDER BY clicks DESC limit 0,5";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        exit();
+        exit("error");
     }
-    mysqli_stmt_bind_param($stmt, "s", $search);
+    mysqli_stmt_bind_param($stmt, "sss", $search,$search,$search);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     while ($row = mysqli_fetch_assoc($result)) {
-        echo "<a href='" . $row['address'] . "'><div><button class='dataset'>" . $row['name'] . "<img id='q" . $row['PKLinks'] . "' class='question' src='question-circle.svg'></button></div></a><br>";
+        echo "
+            <form action=' ' method='POST'>
+            <input type='hidden' name='PK' value=" . $row['PKLinks'] . ">
+            <input type='hidden' name='link-address' value=" . $row['address'] . ">
+            <button style='background-color: ".$row['color']."' type='submit' name='submit-click' class='dataset'>" . $row['name'] . "
+                <img id='q" . $row['PKLinks'] . "' class='question' src='question-circle.svg'>
+            </button>
+            </form><br>";
     }
     mysqli_close($conn);
-}
+}   
 
 ?>
-<style>
-    a a:hover {
-        text-decoration: none;
-    }
-
-    button:hover {
-        cursor: pointer;
-    }
-
-    .question {
-        position: absolute;
-        right: 4%;
-        width: 3vh;
-        height: 3vh;
-        z-index: 3;
-    }
-
-    .dataset {
-        width: 100%;
-        height: 6vh;
-        padding: 10px 20px;
-        margin-top: 1vh;
-        margin-bottom: 1vh;
-        border: none;
-        background-color: white;
-        font-size: 1em;
-        font-weight: 500;
-        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-    }
-</style>
