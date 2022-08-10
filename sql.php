@@ -32,8 +32,8 @@ function getCategory($category_id){
 function fetchAllData()
 {
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME);
-    $sql = "SELECT links.PKLinks, categories.PKCategories, links.name, categories.color, links.address FROM categories INNER JOIN links ON 
-    categories.PKCategories = links.FKCategories ORDER BY clicks DESC limit 0,5";
+    $sql = "SELECT links.PKLinks, links.description, categories.PKCategories, links.name, categories.color, links.address FROM categories LEFT JOIN links ON links.FKCategories = categories.PKCategories 
+    WHERE links.FKCategories = categories.PKCategories ORDER BY clicks DESC limit 0,5";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         exit();

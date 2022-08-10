@@ -14,6 +14,10 @@
 
 <body>
 
+    <div class="nav">
+        <h1 style="text-align: center;">Website Hacks</h1>
+    </div>
+
     <div class="search-engine">
         <form action=" " method="POST">
             <div class="wrapper">
