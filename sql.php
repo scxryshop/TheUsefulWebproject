@@ -5,35 +5,12 @@ define("DB_HOST", "localhost");
 define("DB_PWD", "");
 define("DB_USER", "root");
 
-function getCategory($category_id){
-    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME);
-    $sql = "SELECT links.PKLinks, categories.PKCategories, links.name, categories.color, links.address FROM categories INNER JOIN links ON 
-    categories.PKCategories = links.FKCategories WHERE PKCategories = ? ORDER BY clicks DESC limit 0,5";
-    $stmt = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmt, $sql)) {
-        exit();
-    }
-    mysqli_stmt_bind_param($stmt, "s", $category_id);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    while ($row = mysqli_fetch_assoc($result)) {
-        echo "
-            <form action=' ' method='POST'>
-            <input type='hidden' name='PK' value=" . $row['PKLinks'] . ">
-            <input type='hidden' name='link-address' value=" . $row['address'] . ">
-            <button style='background-color: ".$row['color']."' type='submit' name='submit-click' class='dataset'>" . $row['name'] . "
-                <img id='q" . $row['PKLinks'] . "' class='question' src='question-circle.svg'>
-            </button>
-            </form><br>";
-    }
-    mysqli_close($conn);
-}
 
-function fetchAllData()
+function getTopLinks()
 {
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME);
     $sql = "SELECT links.PKLinks, links.description, categories.PKCategories, links.name, categories.color, links.address FROM categories LEFT JOIN links ON links.FKCategories = categories.PKCategories 
-    WHERE links.FKCategories = categories.PKCategories ORDER BY clicks DESC limit 0,5";
+    WHERE links.FKCategories = categories.PKCategories ORDER BY clicks DESC limit 0,4";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         exit();
@@ -42,36 +19,34 @@ function fetchAllData()
     $result = mysqli_stmt_get_result($stmt);
     while ($row = mysqli_fetch_assoc($result)) {
         echo "
-            <form action=' ' method='POST'>
-            <input type='hidden' name='PK' value=" . $row['PKLinks'] . ">
-            <input type='hidden' name='link-address' value=" . $row['address'] . ">
-            <button style='background-color: ".$row['color']."' type='submit' name='submit-click' class='dataset'>" . $row['name'] . "
-                <img id='q" . $row['PKLinks'] . "' class='question' src='question-circle.svg'>
-            </button>
-            </form><br>";
+        <div class='col-xs-12 col-sm-6
+                col-md-6
+                col-lg-6 mb'>
+                    <div data-aos='zoom-in' class='box'>
+                        <h3>" . $row['name'] . "</h3>
+                        <div class='top-link-content'>
+                            <p>" . $row['description'] . "</p>
+                            <form action='' method='POST'>
+                                <input name='PKLinks' type='hidden' value='" . $row['PKLinks'] . "'>
+                                <input name='address' type='hidden' value='" . $row['address'] . "'>
+                                <button name='submit-top-link-click' type='submit' 
+                                style='cursor: pointer;color: rgb(0,123,255);border:none;background-color:white;font-size:1em;max-width:70%;'>
+                                    " . $row['address'] . "
+                                </button>
+                            </form>
+                        </div>
+                </div>
+        </div>    
+        ";
     }
     mysqli_close($conn);
 }
 
-// FORMS: 
 
-if (isset($_POST['submit-click'])) {
-    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME);
-    $sql = "UPDATE links SET clicks = clicks+1 WHERE ".$_POST['PK']." = PKLinks";
-    $stmt = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmt, $sql)) {
-        exit();
-    }
-    mysqli_stmt_execute($stmt);
-    mysqli_close($conn);
-    header("Location: ".$_POST['link-address']);
-    exit();
-}
-
-function fetchCategories()
+function getCategories()
 {
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME);
-    $sql = "SELECT name, PKCategories,color FROM categories";
+    $sql = "SELECT name, PKCategories FROM categories ORDER BY name ASC";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         exit();
@@ -79,12 +54,57 @@ function fetchCategories()
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     while ($row = mysqli_fetch_assoc($result)) {
-        echo "<option class='category-opt' style='color: ".$row['color'].";' value='" . $row['PKCategories'] . "'>" . $row['name'] . "</option>";
+        echo "
+        <div class='col-xs-12 col-sm-6
+                col-md-6
+                col-lg-6 mb-category'>
+                    <div onclick='showCategory(" . $row['PKCategories'] . ")' data-aos='flip-left' class='box category-box'>
+                        <h3>" . $row['name'] . " </h3>
+                        <i id='chevron-compact-down-" . $row['PKCategories'] . "' style='font-size: 2em; display:block;' class='bi bi-chevron-compact-down'></i>
+                        <i id='chevron-compact-up-" . $row['PKCategories'] . "' style='font-size: 2em; display:none;' class='bi bi-chevron-compact-up'></i>
+                </div>";
+
+        echo getLinks($row['PKCategories']);
+        echo "</div>";
+    }
+    mysqli_close($conn);
+}
+/* <div id='category-content-box-" . $row['PKCategories'] . "' style='display:none;' class='box category-content-box'>"
+                            <h2>Halo</h2>
+                            <p>This is a dropdown menu</p>
+                </div>*/
+
+function getLinks($PKCategory)
+{
+    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME);
+    $sql = "SELECT links.name, links.address, links.description, links.PKLinks FROM links WHERE links.FKCatergories = " . $PKCategory . " ORDER BY name ASC";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        exit();
+    }
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    while ($row = mysqli_fetch_assoc($result)) {
+        echo "<div data-aos='zoom-in' class='box'>
+        <h3>" . $row['name'] . "</h3>
+        <div class='top-link-content'>
+            <p>" . $row['description'] . "</p>
+            <form action='' method='POST'>
+                <input name='PKLinks' type='hidden' value='" . $row['PKLinks'] . "'>
+                <input name='address' type='hidden' value='" . $row['address'] . "'>
+                <button name='submit-top-link-click' type='submit' 
+                style='cursor: pointer;color: rgb(0,123,255);border:none;background-color:white;font-size:1em;max-width:70%;'>
+                    " . $row['address'] . "
+                </button>
+            </form>
+        </div>
+</div>";
     }
     mysqli_close($conn);
 }
 
-function searchAllData($search)
+
+function getSearchElements($search)
 {
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME);
     $sql = "SELECT links.PKLinks, links.description, categories.PKCategories, links.name, categories.color, links.address FROM categories LEFT JOIN links ON links.FKCategories = categories.PKCategories 
@@ -93,25 +113,45 @@ function searchAllData($search)
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         exit("error");
     }
-    mysqli_stmt_bind_param($stmt, "sss", $search,$search,$search);
+    mysqli_stmt_bind_param($stmt, "sss", $search, $search, $search);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     while ($row = mysqli_fetch_assoc($result)) {
         echo "
-            <form action=' ' method='POST'>
-            <input type='hidden' name='PK' value=" . $row['PKLinks'] . ">
-            <input type='hidden' name='link-address' value=" . $row['address'] . ">
-            <button style='background-color: ".$row['color']."' type='submit' name='submit-click' class='dataset'>" . $row['name'] . "
-                <img value='" . $row['PKLinks'] . "' id='q" . $row['PKLinks'] . "' class='question' src='question-circle.svg'>
-            </button>
-            </form><br>";
+        <div class='col-xs-12 col-sm-6
+                col-md-6
+                col-lg-6 mb'>
+                    <div class='box'>
+                        <h3>" . $row['name'] . "</h3>
+                        <div class='top-link-content'>
+                            <p>" . $row['description'] . "</p>
+                            <form action='' method='POST'>
+                                <input name='PKLinks' type='hidden' value='" . $row['PKLinks'] . "'>
+                                <input name='address' type='hidden' value='" . $row['address'] . "'>
+                                <button name='submit-top-link-click' type='submit' 
+                                style='cursor: pointer;color: rgb(0,123,255);border:none;background-color:white;font-size:1em;'>
+                                    " . $row['address'] . "
+                                </button>
+                            </form>
+                        </div>
+                </div>
+        </div>    
+        ";
     }
     mysqli_close($conn);
-}   
-
-function displayResponse($name, $color, $address, $PK){
-
-
 }
 
-?>
+// Link has been pressed
+
+if (isset($_POST['submit-top-link-click'])) {
+    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME);
+    $sql = "UPDATE links SET clicks = clicks+1 WHERE " . $_POST['PKLinks'] . " = PKLinks";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        exit();
+    }
+    mysqli_stmt_execute($stmt);
+    mysqli_close($conn);
+    header("Location: " . $_POST['address']);
+    exit();
+}
