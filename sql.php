@@ -62,22 +62,20 @@ function getCategories()
                         <h3>" . $row['name'] . " </h3>
                         <i id='chevron-compact-down-" . $row['PKCategories'] . "' style='font-size: 2em; display:block;' class='bi bi-chevron-compact-down'></i>
                         <i id='chevron-compact-up-" . $row['PKCategories'] . "' style='font-size: 2em; display:none;' class='bi bi-chevron-compact-up'></i>
-                </div>";
-
-        echo getLinks($row['PKCategories']);
-        echo "</div>";
+                </div>
+                <div id='category-content-box-" . $row['PKCategories'] . "' style='display:none;' class='box category-content-box'>
+                "; 
+                echo getLinks($row['PKCategories']);
+        echo "</div></div>";
     }
     mysqli_close($conn);
 }
-/* <div id='category-content-box-" . $row['PKCategories'] . "' style='display:none;' class='box category-content-box'>"
-                            <h2>Halo</h2>
-                            <p>This is a dropdown menu</p>
-                </div>*/
-
-function getLinks($PKCategory)
-{
+function getLinks($category){
+    $elements = "";
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME);
-    $sql = "SELECT links.name, links.address, links.description, links.PKLinks FROM links WHERE links.FKCatergories = " . $PKCategory . " ORDER BY name ASC";
+    $sql = "SELECT links.PKLinks, links.description, links.name, links.address 
+    FROM links LEFT JOIN categories ON links.FKCategories = categories.PKCategories WHERE categories.PKCategories = ".$category." 
+    ORDER BY links.name ASC";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         exit();
@@ -85,9 +83,8 @@ function getLinks($PKCategory)
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     while ($row = mysqli_fetch_assoc($result)) {
-        echo "<div data-aos='zoom-in' class='box'>
-        <h3>" . $row['name'] . "</h3>
-        <div class='top-link-content'>
+        $elements .= "<h3>" . $row['name'] . "</h3>
+        <div class='category-link-content'>
             <p>" . $row['description'] . "</p>
             <form action='' method='POST'>
                 <input name='PKLinks' type='hidden' value='" . $row['PKLinks'] . "'>
@@ -97,10 +94,9 @@ function getLinks($PKCategory)
                     " . $row['address'] . "
                 </button>
             </form>
-        </div>
-</div>";
+        </div>";
     }
-    mysqli_close($conn);
+    return $elements;
 }
 
 
@@ -108,7 +104,7 @@ function getSearchElements($search)
 {
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME);
     $sql = "SELECT links.PKLinks, links.description, categories.PKCategories, links.name, categories.color, links.address FROM categories LEFT JOIN links ON links.FKCategories = categories.PKCategories 
-    WHERE links.name LIKE CONCAT('%', ?, '%') OR links.description LIKE CONCAT('%', ?, '%') OR categories.name LIKE CONCAT('%', ?, '%') ORDER BY clicks DESC limit 0,5";
+    WHERE links.name LIKE CONCAT('%', ?, '%') OR categories.name LIKE CONCAT('%', ?, '%') OR links.description LIKE CONCAT('%', ?, '%')  ORDER BY clicks DESC limit 0,5";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         exit("error");
