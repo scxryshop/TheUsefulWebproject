@@ -63,17 +63,7 @@ function getLinks($category){
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     while ($row = mysqli_fetch_assoc($result)) {
-        $elements .= "<h3>" . $row['name'] . "</h3>
-        <div class='category-link-content'>
-            <p>" . $row['description'] . "</p>
-            <form action='' method='POST'>
-                <input name='PKLinks' type='hidden' value='" . $row['PKLinks'] . "'>
-                <input name='address' type='hidden' value='" . $row['address'] . "'>
-                <button class='link-btn' name='submit-top-link-click' type='submit'>
-                    " . $row['address'] . "
-                </button>
-            </form>
-        </div>";
+        $elements .= getLinkContainer($row['name'], $row['description'], $row['address'], $row['PKLinks']);
     }
     return $elements;
 }
@@ -95,13 +85,13 @@ function getSearchElements($search)
                 col-md-6
                 col-lg-6 mb'>
                     <div class='box'>
-                        <h3>" . $row['name'] . "</h3>
                         <div class='link-content'>
+                        <h3>" . $row['name'] . "</h3>
                             <p>" . $row['description'] . "</p>
                             <form action='' method='POST'>
                                 <input name='PKLinks' type='hidden' value='" . $row['PKLinks'] . "'>
                                 <input name='address' type='hidden' value='" . $row['address'] . "'>
-                                <button name='submit-search-click' type='submit'>
+                                <button class='link-btn' name='submit-search-click' type='submit'>
                                     " . $row['address'] . "
                                 </button>
                             </form>

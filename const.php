@@ -16,13 +16,14 @@ function getLinkContainer($name, $desc, $address, $PKLinks){
     col-md-6
     col-lg-6 mb'>
         <div data-aos='zoom-in' class='box'>
-            <h3>" . $name . "</h3>
+            
             <div class='link-content'>
+            <h3>" . $name . "</h3>
                 <p>" . $desc . "</p>
                 <form action='' method='POST'>
                     <input name='PKLinks' type='hidden' value='" . $PKLinks . "'>
                     <input name='address' type='hidden' value='" . $address . "'>
-                    <button class=' link-btn' name='submit-top-link-click' type='submit' >
+                    <button class='link-btn' name='submit-top-link-click' type='submit' >
                         " . $address . "
                     </button>
                 </form>
