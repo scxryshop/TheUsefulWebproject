@@ -1,6 +1,6 @@
 <?php
 
-define("DB_NAME", "theusefulwebproject");
+define("DB_NAME", "websitehacks");
 define("DB_HOST", "localhost");
 define("DB_PWD", "");
 define("DB_USER", "root");
@@ -9,7 +9,7 @@ define("DB_USER", "root");
 function getTopLinks()
 {
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME);
-    $sql = "SELECT links.PKLinks, links.description, categories.PKCategories, links.name, categories.color, links.address FROM categories LEFT JOIN links ON links.FKCategories = categories.PKCategories 
+    $sql = "SELECT links.PKLinks, links.description, categories.PKCategories, links.name, links.address FROM categories LEFT JOIN links ON links.FKCategories = categories.PKCategories 
     WHERE links.FKCategories = categories.PKCategories ORDER BY clicks DESC limit 0,4";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -103,13 +103,13 @@ function getLinks($category){
 function getSearchElements($search)
 {
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME);
-    $sql = "SELECT links.PKLinks, links.description, categories.PKCategories, links.name, categories.color, links.address FROM categories LEFT JOIN links ON links.FKCategories = categories.PKCategories 
-    WHERE links.name LIKE CONCAT('%', ?, '%') OR categories.name LIKE CONCAT('%', ?, '%') OR links.description LIKE CONCAT('%', ?, '%')  ORDER BY clicks DESC limit 0,5";
+    $sql = "SELECT links.PKLinks, links.description, links.keywords, categories.PKCategories, links.name, links.address FROM categories LEFT JOIN links ON links.FKCategories = categories.PKCategories 
+    WHERE links.name LIKE CONCAT('%', ?, '%') OR links.keywords LIKE CONCAT('%', ?, '%') OR categories.name LIKE CONCAT('%', ?, '%') OR links.description LIKE CONCAT('%', ?, '%')  ORDER BY clicks DESC limit 0,5";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         exit("error");
     }
-    mysqli_stmt_bind_param($stmt, "sss", $search, $search, $search);
+    mysqli_stmt_bind_param($stmt, "ssss", $search, $search, $search,$search);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     while ($row = mysqli_fetch_assoc($result)) {

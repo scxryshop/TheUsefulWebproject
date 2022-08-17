@@ -29,44 +29,25 @@
                 <?php getCategories(); ?>
             </div>
             <?php if (isset($_POST['search'])) : ?>
-            <div id="search-div">
-                <h2><?php echo "Search results for '" . $_POST['search'] . "' :" ?></h2>
-                <div class="row">
-                    <?php getSearchElements($_POST['search']); ?>
+                <div id="search-div">
+                    <h2><?php echo "Search results for '" . $_POST['search'] . "' :" ?></h2>
+                    <div class="row">
+                        <?php getSearchElements($_POST['search']); ?>
+                    </div>
                 </div>
-            </div>
-        <?php endif; ?>
+
+            <?php endif; ?>
+            
         </div>
 
     </main>
+    <a style="cursor:pointer;" href="contact.php"><button style="cursor:pointer;" id="fixed-btn">Contact</button></a>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-  <script>
-    AOS.init();
-  </script>
-  <script>
-    function showCategory(id){
-        if(document.getElementById("category-content-box-"+id).style.display == "none"){
-           $("#category-content-box-"+id).slideDown( "slow", function() {
-                $("#category-content-box-"+id).fadeIn("slow");
-            });
-            $("#chevron-compact-down-"+id).fadeOut(500);
-            setTimeout(function(){
-                $("#chevron-compact-up-"+id).fadeIn("slow");
-            }, 500);
-        }else{
-            $("#category-content-box-"+id).slideUp( "slow", function() {
-                $("#category-content-box-"+id).fadeOut("slow");
-            });
-            $("#category-content-box-"+id).fadeOut("slow");
-            
-            $("#chevron-compact-up-"+id).fadeOut(500);
-            setTimeout(function(){
-                $("#chevron-compact-down-"+id).fadeIn("slow");
-            }, 500);
-        } 
-    }
-  </script>
+    <script>
+        AOS.init();
+    </script>
+    <script src="smooth-open.js" type="text/javascript"></script>
 </body>
 
 </html>
