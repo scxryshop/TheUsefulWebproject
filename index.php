@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-    <?php require_once 'sql.php'; ?>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +13,7 @@
 </head>
 
 <body>
+    <?php require_once 'sql.php'; ?>
     <h1>Website Hacks</h1>
     <main>
         <div data-aos="fade-up" class="search">
@@ -37,7 +37,7 @@
                 </div>
 
             <?php endif; ?>
-            
+
         </div>
 
     </main>
@@ -46,6 +46,11 @@
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         AOS.init();
+    </script>
+    <script>
+        $("#search-bar").on("focus", function(){
+            $("#search-bar").css("border-bottom", "2px solid black").animate({opacity: 1}, 1000);
+        });
     </script>
     <script src="smooth-open.js" type="text/javascript"></script>
 </body>

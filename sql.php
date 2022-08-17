@@ -24,13 +24,12 @@ function getTopLinks()
                 col-lg-6 mb'>
                     <div data-aos='zoom-in' class='box'>
                         <h3>" . $row['name'] . "</h3>
-                        <div class='top-link-content'>
+                        <div class='link-content'>
                             <p>" . $row['description'] . "</p>
                             <form action='' method='POST'>
                                 <input name='PKLinks' type='hidden' value='" . $row['PKLinks'] . "'>
                                 <input name='address' type='hidden' value='" . $row['address'] . "'>
-                                <button name='submit-top-link-click' type='submit' 
-                                style='cursor: pointer;color: rgb(0,123,255);border:none;background-color:white;font-size:1em;max-width:70%;'>
+                                <button class=' link-btn' name='submit-top-link-click' type='submit' >
                                     " . $row['address'] . "
                                 </button>
                             </form>
@@ -89,8 +88,7 @@ function getLinks($category){
             <form action='' method='POST'>
                 <input name='PKLinks' type='hidden' value='" . $row['PKLinks'] . "'>
                 <input name='address' type='hidden' value='" . $row['address'] . "'>
-                <button name='submit-top-link-click' type='submit' 
-                style='cursor: pointer;color: rgb(0,123,255);border:none;background-color:white;font-size:1em;max-width:70%;'>
+                <button class='link-btn' name='submit-top-link-click' type='submit'>
                     " . $row['address'] . "
                 </button>
             </form>
@@ -119,13 +117,12 @@ function getSearchElements($search)
                 col-lg-6 mb'>
                     <div class='box'>
                         <h3>" . $row['name'] . "</h3>
-                        <div class='top-link-content'>
+                        <div class='link-content'>
                             <p>" . $row['description'] . "</p>
                             <form action='' method='POST'>
                                 <input name='PKLinks' type='hidden' value='" . $row['PKLinks'] . "'>
                                 <input name='address' type='hidden' value='" . $row['address'] . "'>
-                                <button name='submit-top-link-click' type='submit' 
-                                style='cursor: pointer;color: rgb(0,123,255);border:none;background-color:white;font-size:1em;'>
+                                <button name='submit-top-link-click' type='submit'>
                                     " . $row['address'] . "
                                 </button>
                             </form>
