@@ -1,5 +1,7 @@
 <?php
 
+require_once 'const.php';
+
 define("DB_NAME", "websitehacks");
 define("DB_HOST", "localhost");
 define("DB_PWD", "");
@@ -9,34 +11,14 @@ define("DB_USER", "root");
 function getTopLinks()
 {
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME);
-    $sql = "SELECT links.PKLinks, links.description, categories.PKCategories, links.name, links.address FROM categories LEFT JOIN links ON links.FKCategories = categories.PKCategories 
-    WHERE links.FKCategories = categories.PKCategories ORDER BY clicks DESC limit 0,4";
     $stmt = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmt, $sql)) {
+    if (!mysqli_stmt_prepare($stmt, GET_TOP_LINKS_QUERY)) {
         exit();
     }
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     while ($row = mysqli_fetch_assoc($result)) {
-        echo "
-        <div class='col-xs-12 col-sm-6
-                col-md-6
-                col-lg-6 mb'>
-                    <div data-aos='zoom-in' class='box'>
-                        <h3>" . $row['name'] . "</h3>
-                        <div class='link-content'>
-                            <p>" . $row['description'] . "</p>
-                            <form action='' method='POST'>
-                                <input name='PKLinks' type='hidden' value='" . $row['PKLinks'] . "'>
-                                <input name='address' type='hidden' value='" . $row['address'] . "'>
-                                <button class=' link-btn' name='submit-top-link-click' type='submit' >
-                                    " . $row['address'] . "
-                                </button>
-                            </form>
-                        </div>
-                </div>
-        </div>    
-        ";
+        echo getLinkContainer($row['name'], $row['description'], $row['address'], $row['PKLinks']);
     }
     mysqli_close($conn);
 }
@@ -45,9 +27,8 @@ function getTopLinks()
 function getCategories()
 {
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME);
-    $sql = "SELECT name, PKCategories FROM categories ORDER BY name ASC";
     $stmt = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmt, $sql)) {
+    if (!mysqli_stmt_prepare($stmt, GET_ALL_CATEGORIES_QUERY)) {
         exit();
     }
     mysqli_stmt_execute($stmt);
@@ -101,10 +82,8 @@ function getLinks($category){
 function getSearchElements($search)
 {
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME);
-    $sql = "SELECT links.PKLinks, links.description, links.keywords, categories.PKCategories, links.name, links.address FROM categories LEFT JOIN links ON links.FKCategories = categories.PKCategories 
-    WHERE links.name LIKE CONCAT('%', ?, '%') OR links.keywords LIKE CONCAT('%', ?, '%') OR categories.name LIKE CONCAT('%', ?, '%') OR links.description LIKE CONCAT('%', ?, '%')  ORDER BY clicks DESC limit 0,5";
     $stmt = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmt, $sql)) {
+    if (!mysqli_stmt_prepare($stmt, SEARCH_QUERY)) {
         exit("error");
     }
     mysqli_stmt_bind_param($stmt, "ssss", $search, $search, $search,$search);
@@ -122,7 +101,7 @@ function getSearchElements($search)
                             <form action='' method='POST'>
                                 <input name='PKLinks' type='hidden' value='" . $row['PKLinks'] . "'>
                                 <input name='address' type='hidden' value='" . $row['address'] . "'>
-                                <button name='submit-top-link-click' type='submit'>
+                                <button name='submit-search-click' type='submit'>
                                     " . $row['address'] . "
                                 </button>
                             </form>
@@ -135,10 +114,21 @@ function getSearchElements($search)
 }
 
 // Link has been pressed
-
 if (isset($_POST['submit-top-link-click'])) {
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME);
     $sql = "UPDATE links SET clicks = clicks+1 WHERE " . $_POST['PKLinks'] . " = PKLinks";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        exit();
+    }
+    mysqli_stmt_execute($stmt);
+    mysqli_close($conn);
+    header("Location: " . $_POST['address']);
+    exit();
+}
+if(isset($_POST['submit-search-click'])){
+    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME);
+    $sql = "UPDATE links SET clicks = searches+1 WHERE " . $_POST['PKLinks'] . " = PKLinks";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         exit();
