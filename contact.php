@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://www.google.com/recaptcha/api.js?render=6LeJ4rkZAAAAACzY22_H5_dT1Qi4FpRcg-CI8mIO"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LdbqokhAAAAAIS3J73mFEYTLqMS20YoeKX2ZsIl"></script>
     <link href="css/contact.css" rel="stylesheet" type="text/css">
     <title>Document</title>
 </head>
@@ -14,7 +14,7 @@
     <section class="get-in-touch">
         <h1 class="title">Send us suggestions</h1>
         <form class="contact-form row" action="" method="post">
-        <input type="hidden" name="token" id="token">
+            <input type="hidden" name="token" id="token">
             <div class="form-field col x-50">
                 <input minlength="3" name="category" id="name" class="input-text js-input" type="text" required>
                 <label class="label" for="name">Category</label>
@@ -45,7 +45,7 @@
     </script>
     <script>
         grecaptcha.ready(function() {
-            grecaptcha.execute('6LeJ4rkZAAAAACzY22_H5_dT1Qi4FpRcg-CI8mIO', {
+            grecaptcha.execute('6LdbqokhAAAAAIS3J73mFEYTLqMS20YoeKX2ZsIl', {
                 action: 'submit'
             }).then(function(token) {
                 document.getElementById("token").value = token;
@@ -55,12 +55,35 @@
     <?php
 
     if (isset($_POST['submit'])) {
-        $request = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LeJ4rkZAAAAAKUoyxUQMtQ4APBUt5QPlhiKbkiJ&response=" . $_POST['token']);
+        $request = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LdbqokhAAAAAPbN-sJyL6T5hsEnyE6jRaQczCcX&response=" . $_POST['token']);
         $request = json_decode($request);
         if ($request->success == true) {
             if ($request->score >= 0.6) {
-                header("Location: php/success.php?success=true");
-                exit();
+                require_once 'php/email_template.php';
+
+                $link = htmlspecialchars($_POST['Link']);
+                $category = htmlspecialchars($_POST['category']);
+                $desc = htmlspecialchars($_POST['description']);
+
+                if (!filter_var($link, FILTER_VALIDATE_URL)) {
+                    header("Location: php/success.php?success=false");
+                    exit();
+                }
+
+                $email = getEmail($link, $desc, $category);
+
+                $headers = "MIME-Version: 1.0" . "\r\n";
+                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                $headers .= 'From: <website@websitehacks.org>' . "\r\n";
+
+                if(!mail("joalukas12@gmail.com", "Website Vorschlag", $email, $headers)){
+                    header("Location: php/success.php?success=false");
+                    exit();
+                }else{
+                    header("Location: php/success.php?success=true");
+                    exit();
+                }
+
             } else {
                 header("Location: php/success.php?success=false");
                 exit();
