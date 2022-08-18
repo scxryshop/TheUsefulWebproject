@@ -16,17 +16,18 @@
         <form class="contact-form row" action="" method="post">
         <input type="hidden" name="token" id="token">
             <div class="form-field col x-50">
-                <input name="category" id="name" class="input-text js-input" type="text" required>
+                <input minlength="3" name="category" id="name" class="input-text js-input" type="text" required>
                 <label class="label" for="name">Category</label>
             </div>
             <div class="form-field col x-50">
-                <input name="Link" id="email" class="input-text js-input" type="text" required>
+                <input minlength="7" name="Link" id="email" class="input-text js-input" type="url" required>
                 <label class="label" for="email">Link</label>
             </div>
             <div class="form-field col x-100">
-                <input name="description" id="message" class="input-text js-input" type="text" required>
+                <input minlength="20" name="description" id="message" class="input-text js-input" type="text" required>
                 <label class="label" for="message">Description</label>
             </div>
+            <p style="text-align:center;">* By submitting this form you <b>agree</b> to our Terms of Service</p>
             <div class="form-field col x-100 align-center">
                 <input name="submit" class="submit-btn" type="submit" value="Submit">
             </div>
@@ -58,9 +59,11 @@
         $request = json_decode($request);
         if ($request->success == true) {
             if ($request->score >= 0.6) {
-                echo "Success";
+                header("Location: php/success.php?success=true");
+                exit();
             } else {
-                echo "error";
+                header("Location: php/success.php?success=false");
+                exit();
             }
         }
     }
