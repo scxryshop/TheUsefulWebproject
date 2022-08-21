@@ -1,4 +1,4 @@
-<?php session_start(); 
+<?php session_start();
 $_SESSION['decline-cookie'] = null;
 ?>
 <!DOCTYPE html>
@@ -18,14 +18,18 @@ $_SESSION['decline-cookie'] = null;
 
 <body>
     <?php require_once 'php/sql.php'; ?>
-    <h1>Website Hacks</h1>
-    <a href="contact.php"><button class="send-links">Send us Links</button></a>
+    <h1>Linked Websites</h1>
     <main>
         <div class="top-links">
-            <div data-aos="fade-up" class="search">
-                <form class="search-bar-form" method="POST" action="#search-div">
-                    <input name='search' placeholder="Search..." id="search-bar" type="text" />
-                </form>
+            <div class="row top-div">
+                <div data-aos="fade-up" class="col-xs-12 col-sm-12
+                col-md-12
+                col-lg-12 search">
+                    <form class="search-bar-form" method="POST" action="#search-div">
+                        <input name='search' placeholder="Search..." id="search-bar" type="text" />
+                    </form>
+                    <a href="contact.php"><button class="send-links">Send us Links</button></a>
+                </div>
             </div>
             <div class="row sub-title" style="width: 80vw;">
                 <div class="col-xs-12">
@@ -48,13 +52,9 @@ $_SESSION['decline-cookie'] = null;
             <?php endif; ?>
 
         </div>
-        <div class="footer">
-            <p>Max Bernhardt & Joa Zaech</p>
-            <p>All rights reserved <a>Impressum</a> 2022 </p>
-        </div>
     </main>
     <?php echo $_SESSION['decline-cookie']; ?>
-    <?php if (!isset($_COOKIE['terms'])): ?>
+    <?php if (!isset($_COOKIE['terms'])) : ?>
         <div id="cookiebanner" class="cookie-consent-banner">
             <div class="cookie-consent-banner__inner">
                 <div class="cookie-consent-banner__copy">

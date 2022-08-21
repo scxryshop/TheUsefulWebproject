@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://www.google.com/recaptcha/api.js?render=6LdbqokhAAAAAIS3J73mFEYTLqMS20YoeKX2ZsIl"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LfKiJchAAAAALLOPvbhJshdfORB4LOd3Ql0O32c"></script>
     <link href="css/contact.css" rel="stylesheet" type="text/css">
     <title>Document</title>
 </head>
@@ -45,7 +45,7 @@
     </script>
     <script>
         grecaptcha.ready(function() {
-            grecaptcha.execute('6LdbqokhAAAAAIS3J73mFEYTLqMS20YoeKX2ZsIl', {
+            grecaptcha.execute('6LfKiJchAAAAALLOPvbhJshdfORB4LOd3Ql0O32c', {
                 action: 'submit'
             }).then(function(token) {
                 document.getElementById("token").value = token;
@@ -55,7 +55,7 @@
     <?php
 
     if (isset($_POST['submit'])) {
-        $request = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LdbqokhAAAAAPbN-sJyL6T5hsEnyE6jRaQczCcX&response=" . $_POST['token']);
+        $request = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=6LfKiJchAAAAAHgriYns9J3khWWGp8h5zjaag-aS&response=" . $_POST['token']);
         $request = json_decode($request);
         if ($request->success == true) {
             if ($request->score >= 0.6) {

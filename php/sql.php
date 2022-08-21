@@ -2,10 +2,10 @@
 
 require_once 'const.php';
 
-define("DB_NAME", "websitehacks");
-define("DB_HOST", "localhost");
-define("DB_PWD", "");
-define("DB_USER", "root");
+define("DB_NAME", "bernhardt");
+define("DB_HOST", "beato.pdx1-mysql-a7-5b.dreamhost.com");
+define("DB_PWD", "Joalukas2004");
+define("DB_USER", "databaseuserq");
 
 
 function getTopLinks()
