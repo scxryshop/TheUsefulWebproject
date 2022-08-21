@@ -10,7 +10,7 @@ define("DB_USER", "root");
 
 function getTopLinks()
 {
-    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME);
+    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME,3306);
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, GET_TOP_LINKS_QUERY)) {
         exit();
