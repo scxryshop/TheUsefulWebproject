@@ -23,7 +23,7 @@ function getTopLinks()
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     while ($row = mysqli_fetch_assoc($result)) {
-        echo getLinkContainer(false,$row['name'], $row['description'], $row['address'], $row['PKLinks']);
+        echo getLinkContainer($row['name'], $row['description'], $row['address'], $row['PKLinks']);
     }
     mysqli_close($conn);
 }
@@ -68,7 +68,7 @@ function getLinks($category){
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     while ($row = mysqli_fetch_assoc($result)) {
-        $elements .= getLinkContainer(true,$row['name'], $row['description'], $row['address'], $row['PKLinks']);
+        $elements .= getLinkContainer($row['name'], $row['description'], $row['address'], $row['PKLinks']);
     }
     return $elements;
 }
