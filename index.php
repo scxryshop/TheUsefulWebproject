@@ -15,7 +15,7 @@ $_SESSION['decline-cookie'] = null;
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <title>Website Hacks</title>
 </head>
-
+<!----HALLO-->
 <body>
     <?php require_once 'php/sql.php'; ?>
     <h1>Linked Websites</h1>
