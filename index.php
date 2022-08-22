@@ -15,7 +15,6 @@ $_SESSION['decline-cookie'] = null;
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <title>Website Hacks</title>
 </head>
-<!----HALLO-->
 <body>
     <?php require_once 'php/sql.php'; ?>
     <h1>Linked Websites</h1>
@@ -83,8 +82,7 @@ $_SESSION['decline-cookie'] = null;
     <script>
         AOS.init();
     </script>
-    <script src="closeCookieBanner.js" type="text/javascript"></script>
-    <script src="smooth-open.js" type="text/javascript"></script>
+    <script src="js/main.js" type="text/javascript"></script>
 </body>
 
 </html>
