@@ -27,7 +27,7 @@ $_SESSION['decline-cookie'] = null;
                     <form class="search-bar-form" method="POST" action="#search-div">
                         <input name='search' placeholder="Search..." id="search-bar" type="text" />
                     </form>
-                    <a href="contact.php"><button class="send-links">Send us Links</button></a>
+                    <a href="contact.php"><button class="send-links">Send us links</button></a>
                 </div>
             </div>
             <div class="row sub-title" style="width: 80vw;">
