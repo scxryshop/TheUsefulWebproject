@@ -1,38 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter&family=Poppins&display=swap');
-:root {
-  --main-bg-color: rgb(255, 255, 255); /*Body bg*/
-  --main-txt-color: black;
-  --main-link-color: rgb(0, 123, 255);/*a tag color*/
-}
-* {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  margin: 0;
-  padding: 0;
-  color: unset;
-  box-sizing: border-box;
-  text-decoration: none;
-  outline: none;
-  scroll-behavior: smooth;
-}
-
-/* width */
-::-webkit-scrollbar {
-  width: 10px;
-  border-radius: 5px;
-}
-/* Track */
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #888;
-}
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
+@import url(standard.css);
 
 body {
   min-height: 200vh;
@@ -68,7 +34,7 @@ h1 {
 .category-box:hover, .link-btn:hover, .send-links:hover{
   cursor: pointer;
 }
-.top-links {
+main {
   position: absolute;
   top: 20vh;
   width: 80vw;
@@ -219,4 +185,18 @@ h1 {
   body {
     height: 300vh;
   }
+}
+footer{
+  font-family: 'Inter', sans-serif;
+  margin-top: 15vh;
+  text-align: center;
+  font-size: 0.9em;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+  padding: 20px;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  background-color: transparent;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
