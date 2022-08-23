@@ -48,7 +48,7 @@ function getCategories()
                         <i id='chevron-compact-down-" . $row['PKCategories'] . "' style='font-size: 2em; display:block;' class='bi bi-chevron-compact-down'></i>
                         <i id='chevron-compact-up-" . $row['PKCategories'] . "' style='font-size: 2em; display:none;' class='bi bi-chevron-compact-up'></i>
                 </div>
-                <div id='category-content-box-" . $row['PKCategories'] . "' style='display:none;' class='box category-content-box'>
+                <div id='category-content-box-" . $row['PKCategories'] . "' style='display:none;' class='row category-content-box'>
                 "; 
                 echo getLinks($row['PKCategories']);
         echo "</div></div>";

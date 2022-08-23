@@ -1,7 +1,5 @@
 <?php
-require_once 'php/sql.php';
-session_start();
-?>
+require_once 'php/sql.php';?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,7 +51,6 @@ session_start();
 
         </div>
     </main>
-    <?php if(!isset($_SESSION['decline'])): ?>
         <div id="cookiebanner" class="cookie-consent-banner">
             <div class="cookie-consent-banner__inner">
                 <div class="cookie-consent-banner__copy">
@@ -73,7 +70,6 @@ session_start();
                 </div>
             </div>
         </div>
-        <?php endif; ?>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>

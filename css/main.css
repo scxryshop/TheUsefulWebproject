@@ -80,7 +80,8 @@ h1 {
   border:none;
   background-color:transparent;
   font-size:1em;
-  max-width:70%;
+  text-align: left;
+  width: 100%;
 }
 
 .categories {
@@ -107,7 +108,8 @@ h1 {
 .link-content {
   margin-top: 0.4em;
   font-size: 1em;
-  border-radius:10px;
+  border-radius: 10px;
+  word-wrap: break-word;
   padding: 10px;
   border: 2px solid #ccc;
   transition: box-shadow .3s;
