@@ -121,6 +121,15 @@ if (isset($_POST['submit-top-link-click'])) {
     header("Location: " . $_POST['address']);
     exit();
 }
+
+if(isset($_POST['submit'])){
+    if($_POST['submit'] == "accept-cookie"){
+        setcookie("terms", "accept", time()+31556926 ,'/', "localhost");
+    }else if($_POST['submit'] == "decline-cookie"){
+        $_SESSION['cookie'] = "decline";
+    }
+}
+
 // Search has been activated
 if(isset($_POST['submit-search-click'])){
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME);

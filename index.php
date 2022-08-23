@@ -1,5 +1,6 @@
-<?php session_start();
-$_SESSION['decline-cookie'] = null;
+<?php
+require_once 'php/sql.php';
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,8 +16,8 @@ $_SESSION['decline-cookie'] = null;
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <title>Website Hacks</title>
 </head>
+
 <body>
-    <?php require_once 'php/sql.php'; ?>
     <h1>Linked Websites</h1>
     <main>
         <div class="top-links">
@@ -52,8 +53,7 @@ $_SESSION['decline-cookie'] = null;
 
         </div>
     </main>
-    <?php echo $_SESSION['decline-cookie']; ?>
-    <?php if (!isset($_COOKIE['terms'])) : ?>
+    <?php if(!isset($_SESSION['decline'])): ?>
         <div id="cookiebanner" class="cookie-consent-banner">
             <div class="cookie-consent-banner__inner">
                 <div class="cookie-consent-banner__copy">
@@ -63,20 +63,17 @@ $_SESSION['decline-cookie'] = null;
 
                 <div class="cookie-consent-banner__actions">
                     <form action="php/cookie.php" method="post">
-                        <input id="cookie-val" type="hidden" name="cookie-val">
-                        <button style="border: none;" id="accept-cookie" class="cookie-consent-banner__cta">
+                        <button name="submit-accept" type="submit" value="accept-cookie" style="border: none;" id="accept-cookie" class="cookie-consent-banner__cta">
                             Got it!
                         </button>
-                        <button id="decline-cookie" class="cookie-consent-banner__cta cookie-consent-banner__cta--secondary">
+                        <button name="submit-decline" type="submit" value="decline-cookie" id="decline-cookie" class="cookie-consent-banner__cta cookie-consent-banner__cta--secondary">
                             Decline
                         </button>
-                        <button id="submit-cookie" style="display: none;" type="submit" name="submit-cookie"></button>
                     </form>
                 </div>
             </div>
         </div>
-    <?php endif; ?>
-
+        <?php endif; ?>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>

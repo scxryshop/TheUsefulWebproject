@@ -74,13 +74,14 @@
 
 .cookie-consent-banner__cta:hover {
   background-color: #20BA68;
+  cursor: pointer;
 }
 
 .cookie-consent-banner__cta--secondary:hover {
   border-color: #838F93;
 
   background-color: transparent;
-
+  cursor: pointer;
   color: black;
 }
 
