@@ -66,7 +66,6 @@
                 $desc = htmlspecialchars($_POST['description']);
 
                 if (!filter_var($link, FILTER_VALIDATE_URL)) {
-                    header("Location: php/success.php?success=false");
                     exit();
                 }
 
@@ -75,17 +74,12 @@
                 $headers = "MIME-Version: 1.0" . "\r\n";
                 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
                 $headers .= 'From: <website@websitehacks.org>' . "\r\n";
-
                 if(!mail("joalukas12@gmail.com", "Website Vorschlag", $email, $headers)){
-                    header("Location: php/success.php?success=false");
                     exit();
                 }else{
-                    header("Location: php/success.php?success=true");
                     exit();
                 }
-
             } else {
-                header("Location: php/success.php?success=false");
                 exit();
             }
         }
