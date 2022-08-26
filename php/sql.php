@@ -2,15 +2,20 @@
 
 require_once 'const.php';
 
+/*
+define("DB_NAME", "bernhardt");
+define("DB_HOST", "beato.pdx1-mysql-a7-5b.dreamhost.com");
+define("DB_PWD", "Joalukas2004");
+define("DB_USER", "databaseuserq");
+*/
 define("DB_NAME", "websitehacks");
 define("DB_HOST", "localhost");
 define("DB_PWD", "");
 define("DB_USER", "root");
 
-
 function getTopLinks()
 {
-    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME);
+    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME,3306);
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, GET_TOP_LINKS_QUERY)) {
         exit();
@@ -18,7 +23,7 @@ function getTopLinks()
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     while ($row = mysqli_fetch_assoc($result)) {
-        echo getLinkContainer(false,$row['name'], $row['description'], $row['address'], $row['PKLinks']);
+        echo getLinkContainer($row['name'], $row['description'], $row['address'], $row['PKLinks']);
     }
     mysqli_close($conn);
 }
@@ -43,7 +48,7 @@ function getCategories()
                         <i id='chevron-compact-down-" . $row['PKCategories'] . "' style='font-size: 2em; display:block;' class='bi bi-chevron-compact-down'></i>
                         <i id='chevron-compact-up-" . $row['PKCategories'] . "' style='font-size: 2em; display:none;' class='bi bi-chevron-compact-up'></i>
                 </div>
-                <div id='category-content-box-" . $row['PKCategories'] . "' style='display:none;' class='box category-content-box'>
+                <div id='category-content-box-" . $row['PKCategories'] . "' style='display:none;' class='row category-content-box'>
                 "; 
                 echo getLinks($row['PKCategories']);
         echo "</div></div>";
@@ -63,7 +68,7 @@ function getLinks($category){
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
     while ($row = mysqli_fetch_assoc($result)) {
-        $elements .= getLinkContainer(true,$row['name'], $row['description'], $row['address'], $row['PKLinks']);
+        $elements .= getLinkContainer($row['name'], $row['description'], $row['address'], $row['PKLinks']);
     }
     return $elements;
 }
@@ -116,9 +121,19 @@ if (isset($_POST['submit-top-link-click'])) {
     header("Location: " . $_POST['address']);
     exit();
 }
+
+if(isset($_POST['submit'])){
+    if($_POST['submit'] == "accept-cookie"){
+        setcookie("terms", "accept", time()+31556926 ,'/', "localhost");
+    }else if($_POST['submit'] == "decline-cookie"){
+        $_SESSION['cookie'] = "decline";
+    }
+}
+
+// Search has been activated
 if(isset($_POST['submit-search-click'])){
     $conn = mysqli_connect(DB_HOST, DB_USER, DB_PWD, DB_NAME);
-    $sql = "UPDATE links SET clicks = searches+1 WHERE " . $_POST['PKLinks'] . " = PKLinks";
+    $sql = "UPDATE links SET searches = searches+1 WHERE " . $_POST['PKLinks'] . " = PKLinks";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
         exit();

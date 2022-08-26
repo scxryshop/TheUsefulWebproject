@@ -1,3 +1,4 @@
+// Shows the categories
 function showCategory(id){
     if(document.getElementById("category-content-box-"+id).style.display == "none"){
        $("#category-content-box-"+id).slideDown( "slow", function() {
