@@ -1,0 +1,58 @@
+@import url(standard.css);
+
+body,html{
+    font-family: 'Inter', sans-serif;
+}
+h1{
+    text-align: center;
+    margin: 2vh;
+}
+
+h2{
+    margin-left: 5vw;
+}
+
+article{
+    word-break: break-word;
+}
+
+a{
+    color: var(--main-link-color);
+}
+
+.content{
+    font-size: 1em;
+    margin-top: 2vh;
+    width: 90vw;
+    margin-left: 5vw;
+    padding: 2em;
+}
+
+.footer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+}
+
+.footer button{
+    text-align: center;
+  color: white;
+  border-radius: 10px;
+  width: 40%;
+  padding: 20px 10px;
+  font-size: 1.2em;
+  border: none;
+  background: #56CCF2;
+  transition: all ease-in-out 0.6s;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #2F80ED, #56CCF2);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #2F80ED, #56CCF2);
+}
+
+.footer button:hover{
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
