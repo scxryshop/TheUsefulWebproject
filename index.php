@@ -23,7 +23,7 @@ require_once 'php/sql.php'; ?>
             <div data-aos="fade-up" class="col-xs-12 col-sm-12
                 col-md-12
                 col-lg-12 search">
-                <form class="search-bar-form" method="POST" action="#search-div">
+                <form autocomplete="off" class="search-bar-form" method="POST" action="#search-div">
                     <input name='search' placeholder="Search..." id="search-bar" type="text" />
                 </form>
                 <a href="contact.php"><button class="send-links">Send us links</button></a>

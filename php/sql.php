@@ -84,27 +84,41 @@ function getSearchElements($search)
     mysqli_stmt_bind_param($stmt, "ssss", $search, $search, $search,$search);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
-    while ($row = mysqli_fetch_assoc($result)) {
+    if(mysqli_fetch_assoc($result) > 0){
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo "
+            <div class='col-xs-12 col-sm-6
+                    col-md-6
+                    col-lg-6 mb'>
+                        <div class='box'>
+                            <div class='link-content'>
+                            <h3>" . $row['name'] . "</h3>
+                                <p>" . $row['description'] . "</p>
+                                <form action='' method='POST'>
+                                    <input name='PKLinks' type='hidden' value='" . $row['PKLinks'] . "'>
+                                    <input name='address' type='hidden' value='" . $row['address'] . "'>
+                                    <button class='link-btn' name='submit-search-click' type='submit'>
+                                        " . $row['address'] . "
+                                    </button>
+                                </form>
+                            </div>
+                    </div>
+            </div>    
+            ";
+        }
+    }else{
         echo "
-        <div class='col-xs-12 col-sm-6
-                col-md-6
-                col-lg-6 mb'>
-                    <div class='box'>
-                        <div class='link-content'>
-                        <h3>" . $row['name'] . "</h3>
-                            <p>" . $row['description'] . "</p>
-                            <form action='' method='POST'>
-                                <input name='PKLinks' type='hidden' value='" . $row['PKLinks'] . "'>
-                                <input name='address' type='hidden' value='" . $row['address'] . "'>
-                                <button class='link-btn' name='submit-search-click' type='submit'>
-                                    " . $row['address'] . "
-                                </button>
-                            </form>
-                        </div>
-                </div>
-        </div>    
-        ";
+            <div class='col-xs-12 col-sm-6
+                    col-md-6
+                    col-lg-6 mb'>
+                        <div class='box'>
+                            <h3>No matching links found :(</h3>
+                            <p>Feel free to add a link <a href='contact.php'>here</a>.</p>
+                    </div>
+            </div>    
+            ";
     }
+    
     mysqli_close($conn);
 }
 
