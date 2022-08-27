@@ -8,7 +8,7 @@ define("GET_ALL_CATEGORIES_QUERY", "SELECT name, PKCategories FROM categories OR
 
 
 define("SEARCH_QUERY", "SELECT links.PKLinks, links.description, links.keywords, categories.PKCategories, links.name, links.address FROM categories LEFT JOIN links ON links.FKCategories = categories.PKCategories 
-WHERE links.keywords LIKE CONCAT('%', ?, '%') OR links.name LIKE CONCAT('%', ?, '%') OR links.description LIKE CONCAT('%', ?, '%') OR categories.name LIKE CONCAT('%', ?, '%') ORDER BY clicks+searches DESC limit 0,10");
+WHERE links.keywords LIKE CONCAT('%', ?, '%') OR links.name LIKE CONCAT('%', ?, '%') OR links.description LIKE CONCAT('%', ?, '%') OR categories.name LIKE CONCAT('%', ?, '%') ORDER BY clicks+searches DESC");
 
 
 function getLinkContainer($name, $desc, $address, $PKLinks){

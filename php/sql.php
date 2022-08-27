@@ -2,8 +2,8 @@
 
 require_once 'const.php';
 
-/*
-define("DB_NAME", "bernhardt");
+
+/* define("DB_NAME", "bernhardt");
 define("DB_HOST", "beato.pdx1-mysql-a7-5b.dreamhost.com");
 define("DB_PWD", "Joalukas2004");
 define("DB_USER", "databaseuserq");
@@ -11,7 +11,7 @@ define("DB_USER", "databaseuserq");
 define("DB_NAME", "websitehacks");
 define("DB_HOST", "localhost");
 define("DB_PWD", "");
-define("DB_USER", "root");
+define("DB_USER", "root"); 
 
 function getTopLinks()
 {
@@ -84,7 +84,8 @@ function getSearchElements($search)
     mysqli_stmt_bind_param($stmt, "ssss", $search, $search, $search,$search);
     mysqli_stmt_execute($stmt);
     $result = mysqli_stmt_get_result($stmt);
-    if(mysqli_fetch_assoc($result) > 0){
+
+    if(mysqli_num_rows($result) != 0){
         while ($row = mysqli_fetch_assoc($result)) {
             echo "
             <div class='col-xs-12 col-sm-6
@@ -108,15 +109,15 @@ function getSearchElements($search)
         }
     }else{
         echo "
-            <div class='col-xs-12 col-sm-6
-                    col-md-6
-                    col-lg-6 mb'>
-                        <div class='box'>
-                            <h3>No matching links found :(</h3>
-                            <p>Feel free to add a link <a href='contact.php'>here</a>.</p>
-                    </div>
-            </div>    
-            ";
+        <div class='col-xs-12 col-sm-6
+                col-md-6
+                col-lg-6 mb'>
+                    <div class='box'>
+                        <h3>No matching links found :(</h3>
+                        <p>Feel free to add a link <a href='contact.php'>here</a>.</p>
+                </div>
+        </div>    
+        ";
     }
     
     mysqli_close($conn);

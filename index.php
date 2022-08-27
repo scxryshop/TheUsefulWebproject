@@ -50,7 +50,6 @@ require_once 'php/sql.php'; ?>
         <?php endif; ?>
         <div class="row footer">
             <footer>
-                <p>Max Bernhardt and Joa Zaech</p>
                 <p>&copy; Copyright 2022 websiteslink.com</p>
                 <a href="impressum.php">Impressum</a>
             </footer>
