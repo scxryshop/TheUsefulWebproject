@@ -25,15 +25,15 @@
             <b>
                 <h3>Liability for content</h3>
             </b>
-            <p>Pursuant to § 7, Para. 1 of the German Telemedia Act (TMG), as a service provider
-                we are responsible under general law for our own contents on this website.
-                According to §§ 8 to 10 TMG, however, we are not obligated as a service provider to
-                monitor transmitted or stored third-party information or to investigate
-                circumstances that indicate illegal activity. The obligation to remove or block the
-                use of information in accordance with general laws remain unaffected by this.
-                However, liability in this regard is only possible from the point in time at which a
-                concrete infringement of the law becomes known. If we become aware of any such
-                infringements, we will remove the relevant content immediately.</p>
+            <p>Pursuant to § 7, Para. 1 TMG, as a service provider we are responsible under
+                general law for our own content on this website. According to §§ 8 to 10 TMG,
+                however, we are not obligated as a service provider to monitor transmitted or
+                stored third-party information or to investigate circumstances that indicate illegal
+                activity. The obligation to remove or block the use of information in accordance with
+                general laws remain unaffected by this. However, liability in this regard is only
+                possible from the point in time at which a concrete infringement of the law
+                becomes known. If we become aware of any such infringements, we will remove
+                the relevant content immediately.</p>
         </article>
         <br>
         <article>
@@ -41,14 +41,14 @@
                 <h3>Liability for links</h3>
             </b>
             <p>Our website contains links to external third-party websites over whose content we
-                have no influence. Therefore, we cannot assume any liability for these external
-                contents. The respective provider or operator of the websites is always responsible
-                for the content of these pages. The sites were checked for potential illegal content
-                at the time the links were created. Illegal content was not detected at the time the
-                links were created. Moreover, a permanent control of the contents of the linked
-                websites shall not be considered reasonable without a concrete indication for a
-                violation of the law and will not be carried out. We will immediately remove such
-                contents upon discovery of infringements.
+                have no influence. Therefore, we cannot assume liability for any external content.
+                The respective provider or operator of the websites is always responsible for the
+                content of these pages. The websites were checked for potential illegal content at
+                the time the links were created. However, illegal content was not detected at that
+                time. Moreover, a permanent control of the content of the linked websites shall not
+                be considered reasonable without a concrete indication for a violation of a law and
+                will not be carried out. We will immediately remove such content upon discovery of
+                infringements.
             </p>
 
         </article>
@@ -57,7 +57,7 @@
             <b>
                 <h3>Copyright</h3>
             </b>
-            <p>The contents and works put together by the page operators are protected by
+            <p>The content and works put together by the page operators are protected by
                 copyright law. Copying, processing, distributing and any kind of use outside the
                 limits of copyright law requires the written consent of the respective author or
                 originator. Downloading and copying this website onto other computers is only
@@ -66,7 +66,7 @@
                 copyrights are respected. Contributions by third parties are identified as such.
                 Nevertheless if you should become aware of a copyright violation we request that
                 you notify us accordingly. When violations of rights become known, we shall remove
-                such contents immediately.</p>
+                such content immediately.</p>
         </article>
     </div>
     <div class="footer">

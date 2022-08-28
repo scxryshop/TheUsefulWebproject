@@ -1,8 +1,8 @@
 // Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300);
-@import url(https://fonts.googleapis.com/css?family=Lusitana:400,700);
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Poppins&display=swap');
 
 * {
+   font-family: 'Inter', sans-serif;
    -webkit-font-smoothing: antialiased;
    -moz-osx-font-smoothing: grayscale;
    margin: 0;
@@ -66,7 +66,7 @@ body {
   
   .title {
      text-align: center;
-     font-family: Raleway, sans-serif;
+     font-family: 'Inter', sans-serif;
      text-transform: uppercase;
      letter-spacing: 3px;
      font-size: 36px;
@@ -86,7 +86,7 @@ body {
       height: 36px;
       border-width: 0 0 2px 0;
       border-color: #000;
-      font-family: Lusitana, serif;
+      font-family: 'Inter', sans-serif;
       font-size: 18px;
       line-height: 26px;
       font-weight: 400;
@@ -106,7 +106,7 @@ body {
       position: absolute;
       left: 20px;
       bottom: 11px;
-      font-family: Lusitana, serif;
+      font-family: 'Inter', sans-serif;
       font-size: 18px;
       line-height: 26px;
       font-weight: 400;
@@ -119,7 +119,7 @@ body {
       display: inline-block;
       background-color: #000;
       color: #fff;
-      font-family: Raleway, sans-serif;
+      font-family: 'Inter', sans-serif;
       text-transform: uppercase;
       letter-spacing: 2px;
       font-size: 16px;
@@ -136,7 +136,7 @@ body {
    bottom: 10px;
    width: 100%;
    text-align: center;
-   font-family: Lusitana, serif;
+   font-family: 'Inter', sans-serif;
    font-size: 16px;
    line-height: 21px;
    
@@ -148,3 +148,21 @@ body {
       }
    }
 }
+
+/* width */
+::-webkit-scrollbar {
+   width: 10px;
+   border-radius: 5px;
+ }
+ /* Track */
+ ::-webkit-scrollbar-track {
+   background: #f1f1f1;
+ }
+ /* Handle */
+ ::-webkit-scrollbar-thumb {
+   background: #888;
+ }
+ /* Handle on hover */
+ ::-webkit-scrollbar-thumb:hover {
+   background: #555;
+ }

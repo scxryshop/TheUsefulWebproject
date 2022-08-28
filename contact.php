@@ -14,7 +14,7 @@
 <body>
     <section class="get-in-touch">
         <h1 class="title">Send us suggestions</h1>
-        <form class="contact-form row" action="" method="post">
+        <form autocomplete="off" class="contact-form row" action="" method="post">
             <input type="hidden" name="token" id="token">
             <div class="form-field col x-50">
                 <input minlength="3" name="category" id="name" class="input-text js-input" type="text" required>
@@ -74,8 +74,8 @@
 
                 $headers = "MIME-Version: 1.0" . "\r\n";
                 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-                $headers .= 'From: <website@websitehacks.org>' . "\r\n";
-                if(!mail("joalukas12@gmail.com", "Website Vorschlag", $email, $headers)){
+                $headers .= 'From: <websiteslink.com>' . "\r\n";
+                if(!mail("suggestions@websiteslink.com", "Website Vorschlag", $email, $headers)){
                     exit();
                 }else{
                     exit();
