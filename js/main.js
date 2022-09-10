@@ -13,7 +13,7 @@ function showCategory(id){
             $("#category-content-box-"+id).fadeOut("slow");
         });
         $("#category-content-box-"+id).fadeOut("slow");
-        
+         
         $("#chevron-compact-up-"+id).fadeOut(500);
         setTimeout(function(){
             $("#chevron-compact-down-"+id).fadeIn("slow");
